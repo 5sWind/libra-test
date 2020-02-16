@@ -1,0 +1,94 @@
+<script src="gopherjs-libra.js"></script>
+<script>
+    var defaultServer = "https://gamma.libraide.com:8080",
+        waypoint = "insecure";
+    var client = libra.client(defaultServer, waypoint);
+
+    client.queryTransactionRange(100, 2, true)
+        .then(r => {
+            r.getTransactions().map(txn => {
+                console.log("Txn #", txn.getVersion())
+                console.log("    Gas used (microLibra): ", txn.getGasUsed())
+                console.log("    Major status: ", txn.getMajorStatus())
+            })
+        })
+        .catch(e => {
+            console.log("Error: ", e)
+        })
+    // const fromHexString = hexString =>
+    //     new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+
+    // const toHexString = bytes =>
+    //     bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
+
+    // var senderAddr = fromHexString("f780c7181b3d6a45b0d996e96669ad652a236ad2e921e49f0cc76f96a24589c3");
+    // // priKey = fromHexString("6cc2de09ad00810290953086aa77d2cb8e7884ad6af207c671cbdf2ed5b1d208")
+    // // recvAddr = fromHexString("159cbfe97d116054b5b3f72615c51f682467f3589ab407b9a684cdd8831dcab3");
+
+    // const key = new Uint8Array([108, 194, 222, 9, 173, 0, 129, 2, 144, 149, 48, 134, 170, 119, 210, 203, 142, 120, 132, 173, 106, 242, 7, 198, 113, 203, 223, 46, 213, 177, 210, 8, 157, 6, 102, 28, 202, 167, 140, 244, 213, 106, 183, 13, 141, 83, 68, 142, 8, 31, 95, 230, 193, 13, 195, 50, 164, 220, 168, 165, 36, 255, 100, 31]);
+    // // const code = new Uint8Array([161, 28, 235, 11, 1, 0, 8, 1, 79, 0, 0, 0, 4, 0, 0, 0, 2, 83, 0, 0, 0, 4, 0, 0, 0, 3, 87, 0, 0, 0, 3, 0, 0, 0, 12, 90, 0, 0, 0, 10, 0, 0, 0, 13, 100, 0, 0, 0, 5, 0, 0, 0, 5, 105, 0, 0, 0, 24, 0, 0, 0, 4, 129, 0, 0, 0, 64, 0, 0, 0, 10, 193, 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 1, 1, 2, 1, 0, 0, 3, 0, 2, 1, 8, 0, 0, 1, 8, 0, 0, 0, 3, 1, 8, 0, 0, 8, 77, 121, 77, 111, 100, 117, 108, 101, 9, 76, 105, 98, 114, 97, 67, 111, 105, 110, 1, 84, 2, 105, 100, 247, 128, 199, 24, 27, 61, 106, 69, 176, 217, 150, 233, 102, 105, 173, 101, 42, 35, 106, 210, 233, 33, 228, 159, 12, 199, 111, 150, 162, 69, 137, 195, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 2, 0, 11, 0, 2])
+
+    // const payload = {
+    //     code: new Uint8Array([161, 28, 235, 11, 1, 0, 8, 1, 79, 0, 0, 0, 8, 0, 0, 0, 2, 87, 0, 0, 0, 4, 0, 0, 0, 3, 91, 0, 0, 0, 12, 0, 0, 0, 12, 103, 0, 0, 0, 31, 0, 0, 0, 13, 134, 0, 0, 0, 8, 0, 0, 0, 5, 142, 0, 0, 0, 78, 0, 0, 0, 4, 220, 0, 0, 0, 64, 0, 0, 0, 7, 28, 1, 0, 0, 24, 0, 0, 0, 0, 0, 1, 1, 1, 2, 0, 3, 2, 5, 1, 0, 0, 4, 0, 1, 6, 1, 3, 7, 2, 1, 8, 3, 2, 0, 1, 3, 0, 2, 1, 8, 0, 0, 1, 3, 0, 2, 1, 8, 0, 0, 1, 8, 0, 0, 0, 2, 0, 2, 5, 8, 0, 0, 0, 3, 2, 3, 8, 0, 0, 3, 0, 6, 60, 83, 69, 76, 70, 62, 12, 76, 105, 98, 114, 97, 65, 99, 99, 111, 117, 110, 116, 9, 76, 105, 98, 114, 97, 67, 111, 105, 110, 8, 77, 121, 77, 111, 100, 117, 108, 101, 4, 109, 97, 105, 110, 1, 84, 20, 119, 105, 116, 104, 100, 114, 97, 119, 95, 102, 114, 111, 109, 95, 115, 101, 110, 100, 101, 114, 2, 105, 100, 7, 100, 101, 112, 111, 115, 105, 116, 247, 128, 199, 24, 27, 61, 106, 69, 176, 217, 150, 233, 102, 105, 173, 101, 42, 35, 106, 210, 233, 33, 228, 159, 12, 199, 111, 150, 162, 69, 137, 195, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 8, 0, 11, 0, 18, 1, 1, 12, 1, 44, 11, 1, 18, 2, 1, 18, 3, 1, 2]),
+    //     args: new Uint32Array(10),
+    // }
+
+    // console.log(client);
+
+    // var txn = {
+    //     "senderAddr": senderAddr,
+    //     // "recvAddr": recvAddr,
+    //     "senderPrivateKey": key,
+    //     "senderSeq": 4,
+    //     // "amountMicro": 2 * 10000000,
+    //     "maxGasAmount": 140000,
+    //     "gasUnitPrice": 0,
+    //     "expirationTimestamp": parseInt(Date.now() / 1000) + 60,
+    //     "code": payload.code,
+    //     "args": payload.args,
+    // };
+    // client.submitCustomScriptTransaction(txn)
+    //     .then(r => {
+    //         console.log("Polling sequence number until ", r)
+    //         // return client.pollSequenceUntil(senderAddr, r, parseInt(Date.now() / 1000) + 60)
+    //     })
+    //     .then(r => {
+    //         console.log("done.")
+    //     })
+    //     .catch(e => {
+    //         console.log("Error:", e)
+    //     })
+    // client.queryAccountState(addr)
+    //     .then(r => {
+    //         if (r.isNil()) {
+    //             throw "Account " + addrStr + " does not exist at version " + r.getVersion() + "."
+    //         }
+    //         return r.getAccountBlob()
+    //     })
+    //     .then(r => r.getResource(libra.accountResourcePath()))
+    //     .then(r => {
+    //         console.log("Address: ", addrStr)
+    //         console.log("Balance (microLibra): %d", r.getBalance())
+    //         console.log("Sequence Number: ", r.getSequenceNumber())
+    //         console.log("Sent Events: ", r.getSentEvents())
+    //         console.log("Received Events: ", r.getReceivedEvents())
+    //         console.log("Delegated withdrawal capability: ", r.getDelegatedWithdrawalCapability())
+    //         console.log("Event generator: ", r.getEventGenerator())
+    //         console.log("Proven at ledger version / time: ", r.getLedgerInfo().getVersion(), r.getLedgerInfo().getTimestampUsec() / 1000000)
+    //     })
+    //     .catch(e => {
+    //         console.log("Error: ", e)
+    //     })
+
+    // client.queryTransactionRange(100, 2, true)
+    //     .then(r => {
+    //         r.getTransactions().map(txn => {
+    //             console.log("Txn #", txn.getVersion())
+    //             console.log("    Gas used (microLibra): ", txn.getGasUsed())
+    //             console.log("    Major status: ", txn.getMajorStatus())
+    //         })
+    //     })
+    //     .catch(e => {
+    //         console.log("Error: ", e)
+    //     })
+</script>

@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+        "elliptic": "^6.5.2",
+        "gopherjs-libra": "^0.1.10",
+        "gopherjs-libra-test": "^0.1.1",
+        "kulap-libra": "^2.0.7",
+        "n64": "^0.2.10",
+        "sha3": "^2.1.1",
+        "wm-kulap-libra": "^2.0.7"
+    }
+}
